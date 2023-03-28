@@ -96,6 +96,7 @@ if __name__ == '__main__':
             # 주소의 데이터를 처리하고, [가맹점 이름, 시/도, 군/구, 주소] 형식으로 배열을 변경
             storeItems = list(map(lambda x: [x['strong'], sido1, sido2, x['em'].strip().split('\r')[0]], storeItems))
             sido1Result += storeItems
+            print(storeItems)
         result += sido1Result
 
     # 결과를 csv 파일로 저장
