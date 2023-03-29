@@ -83,23 +83,21 @@ if __name__ == '__main__':
 
         # sido2의 데이터를 가져오기 위해 url을 찾고, xml data parsing
         location_en = translateLocation(sido1)
-        print(sido1, location_en)
-        # locationDataUrl = kyochonLocationDataUrl(location_en)
-        # sido2List = xmlDataParsing(locationDataUrl, "sigungunm")
+        locationDataUrl = kyochonLocationDataUrl(location_en)
+        sido2List = xmlDataParsing(locationDataUrl, "sigungunm")
 
-        # for idx2, sido2 in enumerate(sido2List):
+        for idx2, sido2 in enumerate(sido2List):
             # 시/도, 군/구 데이터는 1번부터 시작하므로 각각 +1을 하여 url 생성
-            # storeItemsUrl = kyochonUrl(idx1 + 1, idx2 + 1)
+            storeItemsUrl = kyochonUrl(idx1 + 1, idx2 + 1)
 
             # 가맹점들을 찾기 위해 store_item클래스를 가진 span태그의 strong과 em태그의 자식들을 parsing
-            # storeItems = htmlParsing(storeItemsUrl, 'span', {'class': 'store_item'}, ['strong', 'em'])
+            storeItems = htmlParsing(storeItemsUrl, 'span', {'class': 'store_item'}, ['strong', 'em'])
 
             # 주소의 데이터를 처리하고, [가맹점 이름, 시/도, 군/구, 주소] 형식으로 배열을 변경
-            # storeItems = list(map(lambda x: [x['strong'], sido1, sido2, x['em'].strip().split('\r')[0]], storeItems))
-            # sido1Result += storeItems
-            # print(storeItems)
-        # result += sido1Result
+            storeItems = list(map(lambda x: [x['strong'], sido1, sido2, x['em'].strip().split('\r')[0]], storeItems))
+            sido1Result += storeItems
+        result += sido1Result
 
     # 결과를 csv 파일로 저장
-    # kyochon_tbl = pd.DataFrame(result, columns=['store', 'sido', 'gungu', 'store_address'])
-    # kyochon_tbl.to_csv('./kyochon_store_items.csv', encoding="cp949", mode="w", index=True)
+    kyochon_tbl = pd.DataFrame(result, columns=['store', 'sido', 'gungu', 'store_address'])
+    kyochon_tbl.to_csv('./kyochon_store_items.csv', encoding="cp949", mode="w", index=True)
